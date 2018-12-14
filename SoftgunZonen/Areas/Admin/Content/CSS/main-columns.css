@@ -1,0 +1,238 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.row {
+}
+
+    .row:after {
+        clear: both;
+        display: table;
+        content: "";
+    }
+
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+    float: left;
+    padding: 5px 15px 5px 15px;
+}
+
+.col-1 {
+    width: 8.333333333333333%;
+}
+
+.col-2 {
+    width: 16.66666666666667%;
+}
+
+.col-3 {
+    width: 25%;
+}
+
+.col-4 {
+    width: 33.33333333333333%;
+}
+
+.col-5 {
+    width: 41.66666666666667%;
+}
+
+.col-6 {
+    width: 50%;
+}
+
+.col-7 {
+    width: 58.33333333333333%;
+}
+
+.col-8 {
+    width: 66.66666666666666%;
+}
+
+.col-9 {
+    width: 75%;
+}
+
+.col-10 {
+    width: 83.33333333333333%;
+}
+
+.col-11 {
+    width: 91.66666666666666%;
+}
+
+.col-12 {
+    width: 100%;
+}
+
+.container, .container-fluid {
+}
+
+.container {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container-fluid {
+    width: 100%;
+}
+
+.img-responsive {
+    display: block;
+    width: 100%;
+}
+
+.visible-mobile {
+    display: none;
+}
+
+.clearFix {
+    clear: both;
+    display: block;
+}
+
+.alignRight {
+    float: right;
+}
+
+input, .btn, select, button {
+    padding: 5px;
+    border-radius: 2px;
+    background-color: white;
+    border: 1px solid black;
+    min-width: 70px;
+}
+
+.btn, input, button {
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    display: inline-block;
+    text-align: center;
+    line-height: 20px;
+}
+
+.text-alert {
+    color: black;
+    font-weight: bold;
+    display: block;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    background-color: rgba(0,0,0,0.2);
+    width: 30%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.text-info {
+    color: black;
+    font-weight: bold;
+    display: block;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    background-color: rgba(0,0,0,0.2);
+    width: 30%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.pull-right {
+    float: right;
+}
+
+.pull-left {
+    float: left;
+}
+
+/* Når skærmen er mindre end 768px TABLETS */
+@media only screen and (max-width:768px) {
+    .col-m-1, .col-m-2, .col-m-3, .col-m-4, .col-m-5, .col-m-6, .col-m-7, .col-m-8, .col-m-9, .col-m-10, .col-m-11, .col-m-12 {
+        float: left;
+        padding: 5px 15px 5px 15px;
+    }
+
+    .col-m-1 {
+        width: 8.333333333333333%;
+    }
+
+    .col-m-2 {
+        width: 16.66666666666667%;
+    }
+
+    .col-m-3 {
+        width: 25%;
+    }
+
+    .col-m-4 {
+        width: 33.33333333333333%;
+    }
+
+    .col-m-5 {
+        width: 41.66666666666667%;
+    }
+
+    .col-m-6 {
+        width: 50%;
+    }
+
+    .col-m-7 {
+        width: 58.33333333333333%;
+    }
+
+    .col-m-8 {
+        width: 66.66666666666666%;
+    }
+
+    .col-m-9 {
+        width: 75%;
+    }
+
+    .col-m-10 {
+        width: 83.33333333333333%;
+    }
+
+    .col-m-11 {
+        width: 91.66666666666666%;
+    }
+
+    .col-m-12 {
+        width: 100%;
+    }
+
+    .container {
+        width: 90%;
+    }
+}
+
+/* Når skærmen er mindre end 480px MOBILE */
+@media only screen and (max-width:480px) {
+    [class*="col-"] {
+        width: 100%;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .hidden-mobile {
+        display: none;
+    }
+
+    .visible-mobile {
+        display: block;
+    }
+}
+
+/* Når skærmen er større end 1439px */
+@media screen and (min-width: 1439px) {
+    .container {
+        width: 1440px;
+    }
+}

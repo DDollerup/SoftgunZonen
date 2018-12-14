@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Product";
+}
+
+<h2>Add Product</h2>
+
+<form action="/Admin/CMS/AddProduct" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-12">
+            <p>
+                Here you can edit @ViewBag.Title.
+            </p>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Title">Title</label>
+                <input type="text" name="Title" />
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Content">Content</label>
+                <textarea name="Content" class="basic"></textarea>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Price">Price</label>
+                <input type="number" step="0.01" name="Price" />
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Avaliable">Avaliable</label>
+                <input type="checkbox" name="Avaliable" value="true" />
+                <input type="hidden" name="Avaliable" value="false" />
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="CategoryID">Category</label>
+                <select name="CategoryID">
+                    <option value="" selected>Pick Category</option>
+                    @foreach (Category item in ViewBag.Categories)
+                    {
+                        <option value="@item.ID">@item.Title</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="currentImage">Existing Image</label>
+                <img />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="imageFile">Pick new image</label>
+                <input type="file" name="imageFile" />
+            </div>
+        </div>
+        <div class="col-12">
+            <input type="submit" value="Save" class="pull-left" />
+        </div>
+    </div>
+</form>
+
+@section JS{
+    <script src="~/Areas/Admin/Plugins/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replaceAll(function (textarea, config) {
+            if (textarea.className == "basic") {
+                config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript,TextColor,BGColor,Format,HorizontalRule,Outdent,Indent,BulletedList,NumberedList';
+                return true;
+            }
+        });
+    </script>
+}

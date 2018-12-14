@@ -1,0 +1,419 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700');
+
+body, html {
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    /*min-height:100vh;*/
+}
+
+.material-icons {
+    line-height: unset;
+}
+
+table.cmsTable {
+    width: 100%;
+    border: 1px solid #969696;
+    border-spacing: 0;
+    text-align: left;
+}
+
+    table.cmsTable a {
+        text-decoration: none;
+        color: black;
+        float: left;
+        width: 33.3333%;
+    }
+
+
+    table.cmsTable th {
+        padding: 10px;
+        background-color: #c7c7c7;
+    }
+
+        table.cmsTable th:last-child {
+            text-align: center;
+        }
+
+    table.cmsTable td {
+        padding: 3px 10px 3px 10px;
+    }
+
+        table.cmsTable td:last-child {
+            text-align: center;
+        }
+
+    table.cmsTable tr[data-searchFilter] > td {
+        transition: 0.2s;
+        border-bottom: 1px solid #969696;
+    }
+
+    table.cmsTable tr[data-searchFilter]:last-child > td {
+        border-bottom: 0;
+    }
+
+    table.cmsTable tr[data-searchFilter]:hover > td {
+        background-color: #1f724e;
+    }
+
+/*#region NAV */
+
+nav {
+    background-color: #4a4a4a;
+    width: 300px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    height: 100%;
+}
+
+    nav a {
+        text-decoration: none;
+        color: unset;
+        display: block;
+        width: 100%;
+    }
+
+    nav > div:nth-child(1) {
+        padding-left: 30px;
+        background-color: #565657;
+        height: 80px;
+        color: white;
+        font-size: 30px;
+        line-height: 80px;
+    }
+
+    nav > div:nth-child(2) {
+    }
+
+    nav ul {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+    }
+
+        nav ul li {
+            margin: 1px 0 1px 0;
+            height: 50px;
+            line-height: 50px !important;
+            background-color: #222222;
+            position: relative;
+        }
+
+            nav ul li div {
+                float: left;
+                height: 100%;
+            }
+
+            nav ul li > div:first-child {
+                width: 50px;
+                color: white;
+                text-align: center;
+            }
+
+            nav ul li > div:last-child {
+                width: 250px;
+                padding-left: 15px;
+                color: white;
+                transition: 0.5s;
+            }
+
+            nav ul li:hover > div:last-child {
+                background-color: #1f724e;
+                padding-left: 30px;
+            }
+
+            /*#region NAV - Dropdown */
+            nav ul li ul {
+                display: none;
+            }
+
+                nav ul li ul li {
+                    background-color: #313131;
+                    width: 250px;
+                }
+
+                    nav ul li ul li > div:nth-child(1) {
+                    }
+
+                    nav ul li ul li > div:nth-child(2) {
+                        width: 200px;
+                    }
+
+                    nav ul li ul li:hover > div:nth-child(2) {
+                        background-color: #1f4c72;
+                    }
+
+            nav ul li:hover ul {
+                z-index: 2;
+                display: initial;
+                position: absolute;
+                left: 50px;
+                top: 50px;
+                animation-name: dropdown;
+                animation-duration: 600ms;
+                animation-iteration-count: 1;
+            }
+
+@keyframes dropdown {
+    0% {
+        opacity: 0;
+        transform: translateY(-25%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/*#endregion */
+/*#endregion */
+
+/*#region Main */
+main {
+    margin-left: 300px;
+}
+
+    main > div {
+        padding-left: 30px;
+    }
+
+        main > div:nth-child(1) {
+            background-color: #969696;
+            height: 80px;
+            color: black;
+            font-size: 30px;
+            line-height: 80px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        main > div:nth-child(2) {
+            padding: 15px 15px 0 15px;
+            margin-top: 80px;
+            margin-bottom: 80px;
+        }
+
+#loginForm {
+    margin-top: 50px;
+    padding: 50px 50px 50px 50px;
+    border: 1px solid darkgray;
+}
+
+    #loginForm h1 {
+        margin: 0;
+        margin-bottom: 30px;
+        padding: 0;
+    }
+
+/*#endregion */
+
+/*#region Input, Buttons etc */
+
+input, button, .btn {
+    transition: 0.2s;
+}
+
+    input:hover, button:hover, .btn:hover {
+        background-color: #1f4c72;
+        color: white;
+    }
+
+.mce-btn button {
+    min-width: unset !important;
+}
+
+#modalContainer {
+}
+
+.modalForm {
+    position: fixed;
+    width: 100%;
+    min-height: 100vh;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 1000;
+    display: none;
+    top: 0;
+}
+
+    .modalForm > div:first-child {
+        position: absolute;
+        width: 55%;
+        min-height: 220px;
+        padding: 10px;
+        left: 50%;
+        transform: translateX(-50%) translateY(10%);
+        border: 1px solid black;
+        border-radius: 5px;
+        background-color: white;
+    }
+
+.form-group {
+    width: 100%;
+    margin-bottom: 30px;
+    padding: 5px;
+    /*background-color:red;*/
+}
+
+    /*.form-group::after, .form.form-group:after {
+        content: "";
+        clear: both;
+    }*/
+
+    .form-group > label {
+        display: block;
+        border-left: 1px solid gray;
+        border-right: 1px solid gray;
+        border-top: 1px solid gray;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        padding: 5px;
+        background-color: lightgray;
+    }
+
+    .form-group input:not([type=button]), .form-group textarea, .form-group select, .form-group img {
+        width: 100%;
+        padding: 5px;
+        resize: none;
+        border: 1px solid gray;
+        border-radius: unset;
+        text-align: left;
+    }
+
+    .form-group table {
+        border-spacing: 0;
+        width: 100%;
+    }
+
+        .form-group table td {
+            border-bottom: 1px solid gray;
+            height: 18px;
+            line-height: 18px;
+        }
+
+            .form-group table td i.material-icons {
+                line-height: 1;
+            }
+
+            .form-group table td:first-child {
+                border-left: 1px solid gray;
+                padding-left: 10px;
+            }
+
+            .form-group table td:last-child {
+                border-right: 1px solid gray;
+                width: 10%;
+                text-align: center;
+                padding-right: 10px;
+            }
+
+
+
+
+    .form-group textarea {
+        height: 200px;
+    }
+
+    .form-group.w25, .form-group.w50, .form-group.w75 {
+        float: left;
+    }
+
+.w25 {
+    width: 25%;
+}
+
+.w50 {
+    width: 50%;
+}
+
+.w75 {
+    width: 75%;
+}
+/*#endregion */
+/*#region CMS Helpers */
+.cms-img-box {
+    width: 100%;
+    height: 405px;
+    border: 1px solid #d1d1d1;
+    overflow-y: scroll;
+    text-align: center;
+}
+
+    .cms-img-box > div {
+        margin: 1%;
+        width: 48%;
+        float: left;
+        position: relative;
+        height: 300px;
+    }
+
+    .cms-img-box input[type=radio] {
+        position: absolute;
+        top: 5%;
+        right: 2%;
+        transform: translateX(-2%) translateY(-5%);
+        background-color: white;
+        width: 1.5vw;
+        height: 1.5vw;
+    }
+
+    .cms-img-box div div:first-child {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .cms-img-box div div img {
+        height: 100%;
+        display: block;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+.cms-input-group div {
+    border: 1px solid blue;
+}
+
+#sys-msg {
+    z-index: 1000;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 80px;
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+    top: -80px;
+    animation-name: sysmsg;
+    animation-duration: 4s; /* or: Xms */
+    animation-iteration-count: 1;
+    text-align: center;
+    line-height: 80px;
+    font-size: 35px;
+}
+
+@keyframes sysmsg {
+    0% {
+        top: -80px;
+    }
+
+    30% {
+        top: 0px;
+    }
+
+    70% {
+        top: 0px;
+    }
+
+    100% {
+        top: -80px;
+    }
+}
+
+/*#endregion */

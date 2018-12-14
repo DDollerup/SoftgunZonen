@@ -1,0 +1,20 @@
+﻿@model List<Product>
+@{
+    ViewBag.Title = ViewBag.Category.Title;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table id="productList">
+    @foreach (Product item in Model)
+    {
+        <tr>
+            <td width="10%"><img src="~/Content/Images/Products/@item.Image" /></td>
+            <td width="15%">@item.Title</td>
+            <td>@Html.Raw(item.Content)</td>
+            <td width="20%">Pris: @item.Price kr.</td>
+            <td width="10%"><div class="avaliable @item.GetAvaliable() positionCenter"></div></td>
+            <td width="10%"><a href="/Home/ShowProduct/@item.ID" class="btn positionCenter">Vis</a></td>
+        </tr>
+    }
+</table>

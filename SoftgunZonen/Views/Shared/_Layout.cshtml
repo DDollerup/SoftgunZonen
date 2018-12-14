@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/CSS/main.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="wrapper">
+        <header>
+            <h1>Softgun Zonen</h1>
+        </header>
+        <main>
+            <nav>
+                <div>
+                    <ul>
+                        <li><a href="/Home/Index">Home</a></li>
+                        <li><a href="/Home/Products">Produkter</a></li>
+                        <li>Butikken</li>
+                        <li>Kontakt</li>
+                    </ul>
+                </div>
+                <div>
+                    <input type="text" name="searchQuery" />
+                    <input type="submit" name="Søg" class="btn" />
+                </div>
+            </nav>
+            <div id="mainContainer">
+                @RenderBody()
+            </div>
+        </main>
+        <footer>
+            @Html.Action("FooterInfo", "Home")
+        </footer>
+    </div>
+    
+</body>
+</html>

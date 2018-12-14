@@ -1,0 +1,24 @@
+﻿@model Product
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<h2>@ViewBag.Title</h2>
+<div id="productPage">
+    <div>
+        @Html.Raw(Model.Content)
+        <p>
+            <strong>Pris: @Model.Price kr.</strong>
+        </p>
+        <p>
+            <div class="avaliable @Model.GetAvaliable()"></div>@(Model.Avaliable ? "Tilgængelig i butikken" : "Ikke tilgængelig i butikken")
+        </p>
+    </div>
+    <div>
+        <div>
+            <img src="~/Content/Images/Products/@Model.Image" /> 
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+

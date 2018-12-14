@@ -1,0 +1,90 @@
+﻿@model Contact
+@{
+    ViewBag.Title = "Contact";
+}
+
+<h2>Edit Contact</h2>
+
+<form action="/Admin/CMS/EditContact" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ID" value="@(Model.ID)" />
+    <input type="hidden" name="Image" value="@(Model?.Image)" />
+    <div class="row">
+        <div class="col-12">
+            <p>
+                Here you can edit @ViewBag.Title.
+            </p>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Title">Title</label>
+                <input type="text" name="Title" value="@(Model?.Title)" />
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Street">Street</label>
+                <input type="text" name="Street" value="@(Model?.Street)" />
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Zip">Zip</label>
+                <input type="text" name="Zip" value="@(Model?.Zip)" />
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Phone">Phone</label>
+                <input type="text" name="Phone" value="@(Model?.Phone)" />
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Fax">Fax</label>
+                <input type="text" name="Fax" value="@(Model?.Fax)" />
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input type="text" name="Email" value="@(Model?.Email)" />
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Content">Content</label>
+                <textarea name="Content" class="advanced">@(Model?.Content)</textarea>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="currentImage">Existing Image</label>
+                <img src="~/Content/Images/Contact/@(Model?.Image)" />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="imageFile">Pick new image</label>
+                <input type="file" name="imageFile" />
+            </div>
+        </div>
+        <div class="col-12">
+            <input type="submit" value="Save" class="pull-left" />
+        </div>
+    </div>
+</form>
+
+@section JS{
+    <script src="~/Areas/Admin/Plugins/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replaceAll(function (textarea, config) {
+            if (textarea.className == "advanced") {
+                return true;
+            }
+            if (textarea.className == "basic") {
+                config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript,TextColor,BGColor,Format,HorizontalRule,Outdent,Indent,BulletedList,NumberedList';
+                return true;
+            }
+        });
+    </script>
+}

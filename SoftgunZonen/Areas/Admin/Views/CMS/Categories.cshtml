@@ -1,0 +1,49 @@
+﻿@model List<Category>
+@{
+    ViewBag.Title = "Categories";
+}
+
+<div class="row">
+    <div class="col-12">
+        <p>
+            Here you can create, edit and delete @ViewBag.Title.
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <input type="text" id="dataInput" placeholder="Search for @ViewBag.Title by name" onkeyup="simpleSearch('#dataInput','[data-searchFilter]','#clearBtn')" /><button id="clearBtn">Clear</button>
+        <a href="/Admin/CMS/AddCategory" class="btn pull-right">Add Category</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <table class="cmsTable">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+            @if (Model.Count < 1)
+            {
+                <tr>
+                    <td colspan="3">Der var ingen resultater tilgængelig.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (Category item in Model)
+                {
+                    <tr data-searchFilter="@(item.Title)">
+                        <td>@item.ID</td>
+                        <td>@item.Title</td>
+                        <td>
+                            <a href="/Admin/CMS/EditCategory/@item.ID"><i class="material-icons">edit</i></a>
+                            <a href="/Admin/CMS/DeleteCategory/@item.ID" onclick="return confirm('Are you sure?')"><i class="material-icons">delete_forever</i></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>

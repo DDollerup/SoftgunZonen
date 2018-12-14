@@ -1,0 +1,31 @@
+﻿@model List<Slider>
+@{
+    Layout = null;
+}
+
+<link href="~/Content/Plugins/bxSlider/css/jquery.bxslider.css" rel="stylesheet" />
+
+
+
+<div style="width:20%;">
+    <div class="slider">
+        @foreach (Slider item in Model)
+        {
+            <img src="~/Content/Images/Slider/@item.Image" alt="@item.Alt" />
+        }
+    </div>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.slider').bxSlider({
+            pager: false,
+            controls: false,
+            auto: true
+        });
+    });
+</script>

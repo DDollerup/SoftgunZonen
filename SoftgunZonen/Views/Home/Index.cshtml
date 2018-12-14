@@ -1,0 +1,12 @@
+﻿@model SoftgunZonen.Models.Page
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@Model.Title</h2>
+
+<p>
+    @Html.Raw(Model.Content)
+</p>
+
+@Html.Action("Slider", "Home")

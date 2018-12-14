@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Proper CMS - @ViewBag.Title</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="~/Areas/Admin/Content/CSS/main-cms.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Content/CSS/main-columns.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+    @RenderSection("CSS", false)
+</head>
+<body>
+    @if (TempData["SYS_MSG"] != null)
+    {
+        <div id="sys-msg">
+            @TempData["SYS_MSG"]
+        </div>
+    }
+    <div id="modalContainer"></div>
+    <nav>
+        <div>
+            Softgun Zonen CMS
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <div><i class="material-icons">dashboard</i></div>
+                    <div>
+                        <a href="/Admin/CMS/Index">Dashboard</a>
+                    </div>
+                </li>
+                <li>
+                    <div><i class="material-icons">home</i></div>
+                    <div>
+                        Sider
+                        <ul>
+                            <li><div><i class="material-icons">subject</i></div><div><a href="@Url.Action("EditIndex")">Index</a></div></li>
+                            <li><div><i class="material-icons">subject</i></div><div><a href="@Url.Action("EditStore")">Store</a></div></li>
+                            <li><div><i class="material-icons">subject</i></div><div><a href="@Url.Action("EditContact")">Contact</a></div></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div><i class="material-icons">apps</i></div>
+                    <div>
+                        <a href="@Url.Action("Categories")">Categories</a>
+                    </div>
+                </li>
+                <li>
+                    <div><i class="material-icons">apps</i></div>
+                    <div>
+                        <a href="@Url.Action("Products")">Products</a>
+                    </div>
+                </li>
+                <li>
+                    <div><i class="material-icons">vpn_key</i></div>
+                    <div>
+                        <a href="/Admin/CMS/Logout">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div>
+            @ViewBag.Title
+        </div>
+        <div id="renderBody">
+            @RenderBody()
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.20.7/sweetalert2.all.min.js"></script>
+    <script src="~/Areas/Admin/Content/JS/main-cms.js"></script>
+    @RenderSection("JS", false)
+</body>
+</html>

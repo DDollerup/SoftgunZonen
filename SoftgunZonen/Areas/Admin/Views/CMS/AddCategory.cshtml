@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Category";
+}
+
+<h2>Add Category</h2>
+
+<form action="/Admin/CMS/AddCategory" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-12">
+            <p>
+                Here you can edit @ViewBag.Title.
+            </p>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Title">Title</label>
+                <input type="text" name="Title" />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="currentImage">Existing Image</label>
+                <img />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="imageFile">Pick new image</label>
+                <input type="file" name="imageFile" />
+            </div>
+        </div>
+        <div class="col-12">
+            <input type="submit" value="Save" class="pull-left" />
+        </div>
+    </div>
+</form>

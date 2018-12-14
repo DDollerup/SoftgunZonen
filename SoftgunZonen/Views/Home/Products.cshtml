@@ -1,0 +1,21 @@
+﻿@model List<Category>
+@{
+    ViewBag.Title = "Produkter";
+}
+
+
+<h2>Produkter</h2>
+
+@foreach (Category item in Model)
+{
+    <a href="/Home/ProductList/@item.ID">
+        <div class="categoryItem">
+            <div>
+                <img src="~/Content/Images/Categories/@item.Image" />
+            </div>
+            <div>
+                <span>@item.Title</span>
+            </div>
+        </div>
+    </a>
+}
