@@ -9,6 +9,10 @@
         @Html.Raw(Model.Content)
         <p>
             <strong>Pris: @Model.Price kr.</strong>
+            @if (Model.GetSalePercentage() > 0)
+            {
+                <i>@Model.GetSalePercentage()</i>
+            }
         </p>
         <p>
             <div class="avaliable @Model.GetAvaliable()"></div>@(Model.Avaliable ? "Tilgængelig i butikken" : "Ikke tilgængelig i butikken")

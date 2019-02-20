@@ -5,6 +5,16 @@
 
 <h2>@ViewBag.Title</h2>
 
+<select name="CategoryID">
+    <option>Vælg Kategori</option>
+    @foreach (Category item in ViewBag.Categories)
+    {
+        <option value="@item.ID">
+            @item.Title
+        </option>
+    }
+</select>
+
 <table id="productList">
     @foreach (Product item in Model)
     {
@@ -18,3 +28,12 @@
         </tr>
     }
 </table>
+
+@section JS
+{
+    <script>
+        $("[name=CategoryID]").change(function () {
+            window.location = "/Home/ProductList/" + $(this).val();
+        });
+    </script>
+}

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string currentPage = ViewContext.RouteData.Values["Action"].ToString().ToLower();
+}
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -15,8 +18,8 @@
             <nav>
                 <div>
                     <ul>
-                        <li><a href="/Home/Index">Home</a></li>
-                        <li><a href="/Home/Products">Produkter</a></li>
+                        <li><a href="/Home/Index" @(currentPage == "index" || currentPage == "" ? "class=active" : "")>Home</a></li>
+                        <li><a href="/Home/Products" @(currentPage == "products" ? "class=active" : "")>Produkter</a></li>
                         <li>Butikken</li>
                         <li>Kontakt</li>
                     </ul>
@@ -34,6 +37,7 @@
             @Html.Action("FooterInfo", "Home")
         </footer>
     </div>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    @RenderSection("JS", false)
 </body>
 </html>

@@ -21,14 +21,18 @@ namespace SoftgunZonen.Controllers
 
         public ActionResult Products()
         {
+
             List<Category> allCategories = context.CategoryFactory.GetAll();
             return View(allCategories);
         }
 
         public ActionResult ProductList(int id = 0)
         {
+            ViewBag.Categories = context.CategoryFactory.GetAll();
             ViewBag.Category = context.CategoryFactory.Get(id);
-            List<Product> productsByCategoryID = context.ProductFactory.GetAllBy("CategoryID", id);
+
+
+            List<Product> productsByCategoryID = (id > 0 ? context.ProductFactory.GetAllBy("CategoryID", id) : context.ProductFactory.GetAll());
             return View(productsByCategoryID);
         }
 

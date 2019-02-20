@@ -16,10 +16,16 @@ namespace SoftgunZonen.Models
         public bool Avaliable { get; set; }
         public string Image { get; set; }
         public int CategoryID { get; set; }
+        public decimal SalePrice { get; set; }
 
         public string GetAvaliable()
         {
             return Avaliable ? "green" : "red";
+        }
+
+        public decimal GetSalePercentage()
+        {
+            return SalePrice > 0m ? (1.00m - (SalePrice / Price)) * 100 : 0m;
         }
     }
 }
