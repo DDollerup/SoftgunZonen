@@ -215,6 +215,7 @@
     <Compile Include="Models\CommentVM.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\MemberVM.cs" />
     <Compile Include="Models\Page.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductVM.cs" />

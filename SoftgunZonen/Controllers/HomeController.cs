@@ -89,12 +89,23 @@ namespace SoftgunZonen.Controllers
             return RedirectToAction("UserProfile");
         }
 
+        public ActionResult Logout()
+        {
+            Session["Member"] = null;
+            return RedirectToAction("Login");
+        }
+
         public ActionResult UserProfile()
         {
             if (Session["Member"] != null)
             {
                 Member member = Session["Member"] as Member;
-                return View(member); 
+                MemberVM memberVM = new MemberVM()
+                {
+                    Member = member,
+                    Comments = context.CommentFactory.GetAllBy("TokenKey", member.Token)
+                };
+                return View(memberVM); 
             }
             else
             {
@@ -126,6 +137,17 @@ namespace SoftgunZonen.Controllers
             comment.DateTime = DateTime.Now;
             context.CommentFactory.Insert(comment);
             return Redirect("/Home/ShowProduct/" + comment.ProductID);
+        }
+
+        public ActionResult DeleteComment(int id = 0)
+        {
+            Comment comment = context.CommentFactory.Get(id);
+            if (comment.TokenKey == ((Session["Member"] as Member).Token))
+            {
+                context.CommentFactory.Delete(id);
+            }
+
+            return RedirectToAction("UserProfile");
         }
     }
 }

@@ -44,6 +44,7 @@ header {
     }
 
 main {
+    position:relative;
     background-color: white;
     border-radius: 10px;
     padding: 15px 0 15px 0;
@@ -264,13 +265,35 @@ nav {
     background-color: #d1d1d3;
     border: 1px solid #2d2f2e;
     border-radius: 10px;
-    padding:5px;
-    margin-bottom:10px;
+    padding: 5px;
+    margin-bottom: 10px;
 }
 
-.commentItem:nth-child(even){
-    background-color:#f1f1f1;
+    .commentItem:nth-child(even) {
+        background-color: #f1f1f1;
+    }
+
+#userComments {
+    width: 50%;
 }
+
+    #userComments th {
+        text-align: left;
+    }
+
+    #userComments tr {
+        background-color: slategray;
+    }
+
+        #userComments tr:nth-child(even) {
+            background-color: lightgray;
+        }
+
+    #userProfile .btn {
+        position: absolute;
+        bottom:35px;
+        left:50px;
+    }
 
 footer {
     text-align: right;

@@ -1,4 +1,4 @@
-﻿@model Member
+﻿@model MemberVM
 @{
     ViewBag.Title = "User Profile";
 }
@@ -11,17 +11,42 @@
         <table>
             <tr>
                 <td>Email</td>
-                <td>@Model.Email</td>
+                <td>@Model.Member.Email</td>
             </tr>
             <tr>
                 <td>Fulde Navn</td>
-                <td>@Model.Firstname @Model.Lastname</td>
+                <td>@Model.Member.Firstname @Model.Member.Lastname</td>
             </tr>
-            
+
         </table>
     </div>
     <div>
         <h2>Kommentarer</h2>
+        <table id="userComments">
+            <thead>
+                <tr>
+                    <th>
+                        Kommentar
+                    </th>
+                    <th>
+                        Gå Til Produkt
+                    </th>
+                    <th>
+                        Slet
+                    </th>
+                </tr>
+            </thead>
+
+            @foreach (Comment item in Model.Comments)
+            {
+                <tr>
+                    <td>@item.Content</td>
+                    <td><a href="/Home/ShowProduct/@item.ProductID">Vis</a></td>
+                    <td><a href="/Home/DeleteComment/@item.ID" onclick="return confirm('Er du sikker?')">Slet</a></td>
+                </tr>
+            }
+        </table>
     </div>
+    <a href="/Home/Logout" class="btn">Logout</a>
 </div>
 
