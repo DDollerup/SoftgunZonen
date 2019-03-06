@@ -1,0 +1,27 @@
+﻿@model Member
+@{
+    ViewBag.Title = "User Profile";
+}
+
+<div id="userProfile">
+    <div>
+        <h2>
+            Bruger Informationer
+        </h2>
+        <table>
+            <tr>
+                <td>Email</td>
+                <td>@Model.Email</td>
+            </tr>
+            <tr>
+                <td>Fulde Navn</td>
+                <td>@Model.Firstname @Model.Lastname</td>
+            </tr>
+            
+        </table>
+    </div>
+    <div>
+        <h2>Kommentarer</h2>
+    </div>
+</div>
+

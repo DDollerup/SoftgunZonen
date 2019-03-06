@@ -11,11 +11,14 @@ namespace SoftgunZonen.Controllers
     public class HomeController : Controller
     {
         DBContext context = DBContext.Instance;
-
-        // GET: Home
+        
+        // Dette er Index Action, den kalder forsiden
         public ActionResult Index()
         {
+            // Den opretter en variabel af typen Page og kalder den Index.
+            // Vi henter vores model data gennem PageFactory hvor vi henter ud fra id 1
             Page index = context.PageFactory.Get(1);
+            // Og så sender vi index variablen tilbage til viewet.
             return View(index);
         }
 
@@ -39,7 +42,21 @@ namespace SoftgunZonen.Controllers
         public ActionResult ShowProduct(int id = 0)
         {
             Product product = context.ProductFactory.Get(id);
-            return View(product);
+
+            ProductVM productVM = new ProductVM();
+            productVM.Product = product;
+            productVM.Comments = new List<CommentVM>();
+            foreach (Comment item in context.CommentFactory.GetAllBy("ProductID", id))
+            {
+                CommentVM cvm = new CommentVM()
+                {
+                    Comment = item,
+                    Member = context.MemberFactory.Get("Token", item.TokenKey)
+                };
+                productVM.Comments.Add(cvm);
+            }
+
+            return View(productVM);
         }
 
         [ChildActionOnly]
@@ -54,6 +71,61 @@ namespace SoftgunZonen.Controllers
         {
             List<Slider> sliders = context.SliderFactory.GetAll();
             return PartialView("SliderPartial", sliders);
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(string email, string password)
+        {
+            Member member = context.MemberFactory.Login(email, password);
+            if (member.ID > 0)
+            {
+                Session["Member"] = member;
+            }
+            return RedirectToAction("UserProfile");
+        }
+
+        public ActionResult UserProfile()
+        {
+            if (Session["Member"] != null)
+            {
+                Member member = Session["Member"] as Member;
+                return View(member); 
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
+        public ActionResult CreateUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateUser(Member member)
+        {
+            if (context.MemberFactory.ExistsBy("Email", member.Email) == false)
+            {
+                member.Password = AutoFactory<Member>.GenerateSHA512Hash(member.Password);
+                context.MemberFactory.Insert(member);
+                return RedirectToAction("Login");
+            }
+            ViewBag.CreateMemberError = true;
+            return View(member);
+        }
+
+        [HttpPost]
+        public ActionResult CreateComment(Comment comment)
+        {
+            comment.DateTime = DateTime.Now;
+            context.CommentFactory.Insert(comment);
+            return Redirect("/Home/ShowProduct/" + comment.ProductID);
         }
     }
 }

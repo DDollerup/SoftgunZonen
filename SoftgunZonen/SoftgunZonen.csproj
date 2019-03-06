@@ -206,13 +206,18 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Factories\AutoFactory.cs" />
     <Compile Include="Factories\DBContext.cs" />
+    <Compile Include="Factories\MemberFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\CommentVM.cs" />
     <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Page.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductVM.cs" />
     <Compile Include="Models\Slider.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -251,6 +256,9 @@
     <Content Include="Views\Home\ShowProduct.cshtml" />
     <Content Include="Views\Home\FooterInfoPartial.cshtml" />
     <Content Include="Views\Home\SliderPartial.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\CreateUser.cshtml" />
+    <Content Include="Views\Home\UserProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

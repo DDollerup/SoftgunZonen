@@ -1,28 +1,65 @@
-﻿@model Product
+﻿@model ProductVM
 @{
-    ViewBag.Title = Model.Title;
+    ViewBag.Title = Model.Product.Title;
 }
 
 <h2>@ViewBag.Title</h2>
 <div id="productPage">
     <div>
-        @Html.Raw(Model.Content)
+        @Html.Raw(Model.Product.Content)
         <p>
-            <strong>Pris: @Model.Price kr.</strong>
-            @if (Model.GetSalePercentage() > 0)
+            <strong>Pris: @Model.Product.Price kr.</strong>
+            @if (Model.Product.GetSalePercentage() > 0)
             {
-                <i>@Model.GetSalePercentage()</i>
+                <i>@Model.Product.GetSalePercentage()</i>
             }
         </p>
         <p>
-            <div class="avaliable @Model.GetAvaliable()"></div>@(Model.Avaliable ? "Tilgængelig i butikken" : "Ikke tilgængelig i butikken")
+            <div class="avaliable @Model.Product.GetAvaliable()"></div>@(Model.Product.Avaliable ? "Tilgængelig i butikken" : "Ikke tilgængelig i butikken")
         </p>
     </div>
     <div>
         <div>
-            <img src="~/Content/Images/Products/@Model.Image" /> 
+            <img src="~/Content/Images/Products/@Model.Product.Image" />
         </div>
     </div>
     <div class="clear"></div>
+    <div id="comments">
+        <div>
+            @if (Session["Member"] != null)
+            {
+                <form action="/Home/CreateComment" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="ProductID" value="@Model.Product.ID" />
+                    <input type="hidden" name="TokenKey" value="@((Session["Member"] as Member).Token)" />
+                    <textarea name="Content" required placeholder="Besked"></textarea>
+                    <input type="submit" value="Send" />
+                </form>
+            }
+            else
+            {
+                <span>Du skal være logget ind for at lave en kommentar. <a href="/Home/Login">Klik her for at logge ind.</a></span>
+            }
+        </div>
+        <div>
+            @foreach (CommentVM item in Model.Comments.OrderByDescending(x => x.Comment.DateTime).ToList())
+            {
+                <div class="commentItem">
+                    <table>
+                        <tr>
+                            <td>Bruger</td>
+                            <td>@item.Member.Firstname @item.Member.Lastname</td>
+                        </tr>
+                        <tr>
+                            <td>Dato</td>
+                            <td>@item.Comment.DateTime.ToString()</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">@item.Comment.Content</td>
+                        </tr>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
 </div>
 

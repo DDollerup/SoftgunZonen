@@ -59,12 +59,12 @@ nav {
 }
 
     nav div:nth-child(1) {
-        width: 60%;
+        width: 78%;
         float: left;
     }
 
     nav div:nth-child(2) {
-        width: 40%;
+        width: 22%;
         float: left;
     }
 
@@ -80,7 +80,7 @@ nav {
 
         nav div ul li {
             float: left;
-            width: 25%;
+            width: 20%;
             color: white;
             font-weight: bold;
         }
@@ -156,7 +156,7 @@ nav {
     }
 
     #productList tr > td:nth-of-type(3) {
-        max-width:407px;
+        max-width: 407px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -212,9 +212,69 @@ nav {
         margin: auto;
     }
 
+#login {
+    width: 80%;
+    margin: auto;
+}
+
+    #login table {
+        width: 60%;
+        margin: auto;
+    }
+
+        #login table input {
+            width: 100%;
+        }
+
+    #login a {
+        color: cornflowerblue;
+    }
+
+#error {
+    color: indianred;
+}
+
+#comments {
+    margin-top: 25px;
+}
+
+    #comments > div:first-of-type {
+        padding: 10px;
+        border: 1px solid #2d2f2e;
+        min-height: 100px;
+        background-color: #cbcbcb;
+        border-radius: 10px;
+        margin-bottom: 25px;
+    }
+
+        #comments > div:first-of-type textarea {
+            width: 100%;
+            min-height: 75px;
+            border-radius: 10px;
+            margin: 0;
+        }
+
+        #comments > div:first-of-type input[type=submit] {
+            border-radius: 10px;
+            padding: 5px;
+            background-color: white;
+        }
+
+.commentItem {
+    background-color: #d1d1d3;
+    border: 1px solid #2d2f2e;
+    border-radius: 10px;
+    padding:5px;
+    margin-bottom:10px;
+}
+
+.commentItem:nth-child(even){
+    background-color:#f1f1f1;
+}
+
 footer {
     text-align: right;
     color: #787878;
-    padding-right:15px;
-    padding-top:8px;
+    padding-right: 15px;
+    padding-top: 8px;
 }

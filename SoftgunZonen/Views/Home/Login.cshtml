@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+
+
+<div id="login">
+    <form action="/Home/Login" method="post" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td>
+                    <h2>Login</h2>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="email" required placeholder="Email" name="Email" /></td>
+            </tr>
+            <tr>
+                <td><input type="password" required placeholder="Password" name="Password" /></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Login" /></td>
+            </tr>
+            <tr>
+                <td>Ikke registreret? <a href="/Home/CreateUser">Lav en bruger</a>.</td>
+            </tr>
+        </table>
+    </form>
+</div>

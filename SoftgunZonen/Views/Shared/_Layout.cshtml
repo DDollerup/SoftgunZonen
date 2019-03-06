@@ -7,6 +7,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link href="~/Content/Plugins/bxSlider/css/jquery.bxslider.css" rel="stylesheet" />
     <link href="~/Content/CSS/main.css" rel="stylesheet" />
 </head>
 <body>
@@ -22,6 +23,16 @@
                         <li><a href="/Home/Products" @(currentPage == "products" ? "class=active" : "")>Produkter</a></li>
                         <li>Butikken</li>
                         <li>Kontakt</li>
+                        <li>
+                            @if (Session["Member"] == null)
+                            {
+                                <a href="/Home/Login">Login</a>
+                            }
+                            else
+                            {
+                                <a href="/Home/UserProfile">Bruger Profil</a>       
+                            }
+                        </li>
                     </ul>
                 </div>
                 <div>
@@ -38,6 +49,16 @@
         </footer>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.slider').bxSlider({
+                pager: false,
+                controls: false,
+                auto: true
+            });
+        });
+    </script>
     @RenderSection("JS", false)
 </body>
 </html>

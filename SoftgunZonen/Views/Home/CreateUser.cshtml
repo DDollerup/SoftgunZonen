@@ -1,0 +1,42 @@
+﻿@model Member
+@{
+    ViewBag.Title = "Create User";
+}
+
+
+
+<div id="login">
+    <form action="/Home/CreateUser" method="post" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td>
+                    <h2>Create User</h2>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="email" required placeholder="Email" name="Email" value="@(Model?.Email)" /></td>
+            </tr>
+            <tr>
+                <td><input type="password" required placeholder="Password" name="Password" /></td>
+            </tr>
+            <tr>
+                <td><input type="text" required placeholder="Firstname" name="Firstname" value="@(Model?.Firstname)" /></td>
+            </tr>
+            <tr>
+                <td><input type="text" required placeholder="Lastname" name="Lastname" value="@(Model?.Lastname)" /></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Opret" />
+                    @if (ViewBag.CreateMemberError == true)
+                    {
+                        <span id="error">En bruger med denne email eksisterer allerede.</span>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>Allerede registreret? <a href="/Home/Login">Tilbage til login</a>.</td>
+            </tr>
+        </table>
+    </form>
+</div>
