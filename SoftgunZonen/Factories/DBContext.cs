@@ -29,6 +29,7 @@ namespace SoftgunZonen.Factories
         private AutoFactory<Slider> sliderFactory;
         private MemberFactory memberFactory;
         private AutoFactory<Comment> commentFactory;
+        private AutoFactory<MemberRole> memberRoleFactory;
 
         public AutoFactory<Page> PageFactory
         {
@@ -123,6 +124,18 @@ namespace SoftgunZonen.Factories
                     commentFactory = new AutoFactory<Comment>();
                 }
                 return commentFactory;
+            }
+        }
+
+        public AutoFactory<MemberRole> MemberRoleFactory
+        {
+            get
+            {
+                if (memberRoleFactory == null)
+                {
+                    memberRoleFactory = new AutoFactory<MemberRole>();
+                }
+                return memberRoleFactory;
             }
         }
     }

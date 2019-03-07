@@ -13,7 +13,7 @@ namespace SoftgunZonen.Areas.Admin.Controllers
     [Authorize]
     public class CMSController : Controller
     {
-        DBContext context = new DBContext();
+        DBContext context = DBContext.Instance;
         // GET: Admin/CMS
         public ActionResult Index()
         {

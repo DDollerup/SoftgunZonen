@@ -103,6 +103,7 @@ namespace SoftgunZonen.Controllers
                 MemberVM memberVM = new MemberVM()
                 {
                     Member = member,
+                    MemberRole = context.MemberRoleFactory.Get(member.MemberRoleID),
                     Comments = context.CommentFactory.GetAllBy("TokenKey", member.Token)
                 };
                 return View(memberVM); 
@@ -142,12 +143,13 @@ namespace SoftgunZonen.Controllers
         public ActionResult DeleteComment(int id = 0)
         {
             Comment comment = context.CommentFactory.Get(id);
-            if (comment.TokenKey == ((Session["Member"] as Member).Token))
+            Member member = (Session["Member"] as Member);
+            if (comment.TokenKey == member.Token || member.MemberRoleID == 2)
             {
                 context.CommentFactory.Delete(id);
             }
 
-            return RedirectToAction("UserProfile");
+            return Redirect(Request.UrlReferrer.PathAndQuery);
         }
     }
 }

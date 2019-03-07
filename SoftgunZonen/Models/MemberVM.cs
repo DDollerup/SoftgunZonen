@@ -8,6 +8,7 @@ namespace SoftgunZonen.Models
     public class MemberVM
     {
         public Member Member { get; set; }
+        public MemberRole MemberRole { get; set; }
         public List<Comment> Comments { get; set; }
     }
 }

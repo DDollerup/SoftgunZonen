@@ -57,6 +57,10 @@
                             <td colspan="2">@item.Comment.Content</td>
                         </tr>
                     </table>
+                    @if ((Session["Member"] as Member)?.MemberRoleID == 2)
+                    {
+                        <a href="/Home/DeleteComment/@item.Comment.ID" onclick="return confirm('Er du sikker?')">Delete Comment</a>
+                    }
                 </div>
             }
         </div>
