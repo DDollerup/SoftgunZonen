@@ -12,7 +12,6 @@ namespace SoftgunZonen.Controllers
     {
         DBContext context = DBContext.Instance;
         
-        // Dette er Index Action, den kalder forsiden
         public ActionResult Index()
         {
             // Den opretter en variabel af typen Page og kalder den Index.
