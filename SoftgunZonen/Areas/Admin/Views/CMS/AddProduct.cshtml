@@ -1,5 +1,6 @@
-﻿@{
-    ViewBag.Title = "Product";
+﻿
+@{
+    ViewBag.Title = "Add Product";
 }
 
 <h2>Add Product</h2>
@@ -8,39 +9,39 @@
     <div class="row">
         <div class="col-12">
             <p>
-                Here you can edit @ViewBag.Title.
+                Here you can @ViewBag.Title
             </p>
         </div>
         <div class="col-12">
             <div class="form-group">
                 <label for="Title">Title</label>
-                <input type="text" name="Title" />
+                <input type="text" name="Title" required />
             </div>
         </div>
-        <div class="col-12">
-            <div class="form-group">
-                <label for="Content">Content</label>
-                <textarea name="Content" class="basic"></textarea>
-            </div>
-        </div>
-        <div class="col-12">
+        <div class="col-3">
             <div class="form-group">
                 <label for="Price">Price</label>
-                <input type="number" step="0.01" name="Price" />
+                <input lang="en" type="number" step="0.01" name="Price" />
             </div>
         </div>
-        <div class="col-12">
+        <div class="col-3">
+            <div class="form-group">
+                <label for="SalePrice">Sale Price</label>
+                <input lang="en" type="number" step="0.01" name="SalePrice" />
+            </div>
+        </div>
+        <div class="col-3">
             <div class="form-group">
                 <label for="Avaliable">Avaliable</label>
-                <input type="checkbox" name="Avaliable" value="true" />
                 <input type="hidden" name="Avaliable" value="false" />
+                <input type="checkbox" name="Avaliable" checked value="true" />
             </div>
         </div>
-        <div class="col-12">
+        <div class="col-3">
             <div class="form-group">
                 <label for="CategoryID">Category</label>
                 <select name="CategoryID">
-                    <option value="" selected>Pick Category</option>
+                    <option value="">Pick Category</option>
                     @foreach (Category item in ViewBag.Categories)
                     {
                         <option value="@item.ID">@item.Title</option>
@@ -48,10 +49,16 @@
                 </select>
             </div>
         </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Content">Content</label>
+                <textarea name="Content"></textarea>
+            </div>
+        </div>
         <div class="col-6">
             <div class="form-group">
-                <label for="currentImage">Existing Image</label>
-                <img />
+                <label for="currentImage">Current Image</label>
+                <img src="~/Content/Images/Categories/@(Model?.Image)" />
             </div>
         </div>
         <div class="col-6">
@@ -66,13 +73,16 @@
     </div>
 </form>
 
-@section JS{
+@section JS
+{
     <script src="~/Areas/Admin/Plugins/ckeditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replaceAll(function (textarea, config) {
-            if (textarea.className == "basic") {
-                config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript,TextColor,BGColor,Format,HorizontalRule,Outdent,Indent,BulletedList,NumberedList';
+            if (textarea.className == "advanced") {
                 return true;
+            }
+            else if (textarea.className == "basic") {
+                config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript,TextColor,BGColor,Format,HorizontalRule,Outdent,Indent,BulletedList,NumberedList';
             }
         });
     </script>

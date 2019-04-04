@@ -3,7 +3,7 @@
     ViewBag.Title = Model.Product.Title;
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>@ViewBag.Title (Views: @Model.Product.Views)</h2>
 <div id="productPage">
     <div>
         @Html.Raw(Model.Product.Content)
@@ -17,6 +17,12 @@
         <p>
             <div class="avaliable @Model.Product.GetAvaliable()"></div>@(Model.Product.Avaliable ? "Tilgængelig i butikken" : "Ikke tilgængelig i butikken")
         </p>
+
+        <div>
+            <p>
+                Current Lieks (<span id="currentLikes">@ViewBag.LikeCount</span>) @(Session["Member"] != null ? Html.Raw("<a href='#' id='likeProduct'>Like</a>") : Html.Raw(""))
+            </p>
+        </div>
     </div>
     <div>
         <div>
@@ -67,3 +73,24 @@
     </div>
 </div>
 
+@section JS
+{
+    <script>
+    $("#likeProduct").click(function () {
+        var object = { 'productId': @Model.Product.ID };
+            $.post("/Home/LikeProduct", object, function (data) {
+                if (data.result == "nomember") {
+                    return;
+                }
+                else if (data.result == true) {
+                    alert("User liked product");
+                }
+                else if (data.result == false) {
+                    alert("User unliked product");
+                }
+
+                $("#currentLikes").html(data.newLikeCount);
+            });
+        });
+    </script>
+}

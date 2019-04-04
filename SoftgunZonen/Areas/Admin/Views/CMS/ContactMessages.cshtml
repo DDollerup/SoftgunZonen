@@ -1,0 +1,51 @@
+﻿@model List<ContactMessage>
+@{
+    ViewBag.Title = "Products";
+}
+
+<div class="row">
+    <div class="col-12">
+        <p>
+            Here you can create, edit and delete @ViewBag.Title.
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <input type="text" id="dataInput" placeholder="Search for @ViewBag.Title by name" onkeyup="simpleSearch('#dataInput','[data-searchFilter]','#clearBtn')" /><button id="clearBtn">Clear</button>
+        @*<a href="/Admin/CMS/AddProduct" class="btn pull-right">Add Product</a>*@
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <table class="cmsTable">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Read</th>
+                <th>Actions</th>
+            </tr>
+            @if (Model.Count < 1)
+            {
+                <tr>
+                    <td colspan="4">Der var ingen resultater tilgængelig.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (ContactMessage item in Model)
+                {
+                    <tr data-searchFilter="@(item.Name)">
+                        <td>@item.ID</td>
+                        <td>@item.Name</td>
+                        <td>@(item.Read ? "" : "New Message")</td>
+                        <td>
+                            <a href="/Admin/CMS/EditContactMessage/@item.ID"><i class="material-icons">edit</i></a>
+                            <a href="/Admin/CMS/DeleteContactMessage/@item.ID" onclick="return confirm('Are you sure?')"><i class="material-icons">delete_forever</i></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>

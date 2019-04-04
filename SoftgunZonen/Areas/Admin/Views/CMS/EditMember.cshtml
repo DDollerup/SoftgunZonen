@@ -1,0 +1,59 @@
+﻿@model Member
+@{
+    ViewBag.Title = "Edit Member";
+}
+
+<h2>Edit Member</h2>
+
+<form action="/Admin/CMS/EditMember" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ID" value="@(Model?.ID)" />
+    <input type="hidden" name="Token" value="@(Model?.Token)" />
+    <input type="hidden" name="Password" value="@(Model?.Password)" />
+    <div class="row">
+        <div class="col-12">
+            <p>
+                Here you can @ViewBag.Title
+            </p>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input type="email" name="Email" readonly value="@(Model?.Email)" />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="Firstname">Firstname</label>
+                <input type="text" name="Firstname" readonly value="@(Model?.Firstname)" />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="Lastname">Lastname</label>
+                <input type="text" name="Lastname" readonly value="@(Model?.Lastname)" />
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="MemberRoleID">Member Role</label>
+                <select name="MemberRoleID" required>
+                    <option value="">Pick Member Role</option>
+                    @foreach (MemberRole item in ViewBag.MemberRoles)
+                    {
+                        if (item.ID == Model.MemberRoleID)
+                        {
+                            <option value="@item.ID" selected>@item.Title</option>
+                        }
+                        else
+                        {
+                            <option value="@item.ID">@item.Title</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-12">
+            <input type="submit" value="Save" class="pull-left" />
+        </div>
+    </div>
+</form>

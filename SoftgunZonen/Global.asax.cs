@@ -13,6 +13,7 @@ namespace SoftgunZonen
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            ModelBinders.Binders.Add(typeof(decimal), new DecimalModelBinder());
         }
     }
 }

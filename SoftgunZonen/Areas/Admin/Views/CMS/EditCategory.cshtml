@@ -1,28 +1,28 @@
 ﻿@model Category
 @{
-    ViewBag.Title = "Category";
+    ViewBag.Title = "Edit Category";
 }
 
 <h2>Edit Category</h2>
 
 <form action="/Admin/CMS/EditCategory" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="ID" value="@Model.ID" />
+    <input type="hidden" name="ID" value="@(Model?.ID)" />
     <input type="hidden" name="Image" value="@(Model?.Image)" />
     <div class="row">
         <div class="col-12">
             <p>
-                Here you can edit @ViewBag.Title.
+                Here you can @ViewBag.Title
             </p>
         </div>
         <div class="col-12">
             <div class="form-group">
                 <label for="Title">Title</label>
-                <input type="text" name="Title" value="@(Model?.Title)" />
+                <input type="text" name="Title" value="@(Model?.Title)" required />
             </div>
         </div>
         <div class="col-6">
             <div class="form-group">
-                <label for="currentImage">Existing Image</label>
+                <label for="currentImage">Current Image</label>
                 <img src="~/Content/Images/Categories/@(Model?.Image)" />
             </div>
         </div>

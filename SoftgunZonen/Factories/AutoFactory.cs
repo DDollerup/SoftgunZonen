@@ -6,7 +6,7 @@
  - You are free to use this as you please   -
  - as long as you credit me :)              -
  -                                          -
- - Latest Update: 22-10-2018                -
+ - Latest Update: 03-04-2019                -
  --------------------------------------------
  */
 
@@ -36,6 +36,34 @@ public enum SearchSpecifier
     Specific,
     Unspecific
 }
+
+public class AutoFactory
+{
+    /// <summary>
+    /// Generates a SHA512 Hash from string value
+    /// </summary>
+    /// <param name="from">value to create from</param>
+    /// <returns>Hashed Value</returns>
+    public static string GenerateSHA512Hash(string from)
+    {
+        SHA512 tokenHash = new SHA512Managed();
+        tokenHash.ComputeHash(System.Text.Encoding.ASCII.GetBytes(from));
+        return BitConverter.ToString(tokenHash.Hash).Replace("-", "").ToLower();
+    }
+
+    /// <summary>
+    /// Generates Salted Password based on Token and
+    /// </summary>
+    /// <param name="token"></param>
+    /// <param name="password"></param>
+    /// <param name="usePepper">If set to true, add a Pepper key to AppSettings in Web.Config</param>
+    /// <returns>Salted and Peppered Password</returns>
+    public static string GenerateSaltedPassword(string token, string password, bool usePepper = false)
+    {
+        return GenerateSHA512Hash(token + password + (usePepper ? ConfigurationManager.AppSettings["Pepper"].ToString() : string.Empty));
+    }
+}
+
 public class AutoFactory<T>
 {
     // Local reference to the ConnectionString set in the WebConfig Root file.
@@ -109,18 +137,6 @@ public class AutoFactory<T>
     }
 
     /// <summary>
-    /// Generates a SHA512 Hash from string value
-    /// </summary>
-    /// <param name="from">value to create from</param>
-    /// <returns></returns>
-    public static string GenerateSHA512Hash(string from)
-    {
-        SHA512 tokenHash = new SHA512Managed();
-        tokenHash.ComputeHash(System.Text.Encoding.ASCII.GetBytes(from));
-        return BitConverter.ToString(tokenHash.Hash).Replace("-", "").ToLower();
-    }
-
-    /// <summary>
     /// Adds entity to the database table
     /// </summary>
     /// <param name="entity">Entity to Add</param>
@@ -145,7 +161,7 @@ public class AutoFactory<T>
                 PropertyInfo property = properties[i];
                 if (property.Name.ToLower().Contains("id") && i == 0) continue;
 
-                sqlQuery += property.Name;
+                sqlQuery += "[" + property.Name + "]";
                 sqlQuery += (i + 1 == properties.Count ? "" : ", ");
             }
 
@@ -221,7 +237,7 @@ public class AutoFactory<T>
             PropertyInfo property = properties[i];
             if (property.Name.ToLower().Contains("id") && i == 0) continue;
 
-            sqlQuery += property.Name + "=@" + property.Name;
+            sqlQuery += "[" + property.Name + "]" + "=@" + property.Name;
             sqlQuery += (i + 1 == properties.Count ? "" : ", ");
         }
 

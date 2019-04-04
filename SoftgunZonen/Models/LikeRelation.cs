@@ -5,11 +5,10 @@ using System.Web;
 
 namespace SoftgunZonen.Models
 {
-    public class User
+    public class LikeRelation
     {
         public int ID { get; set; }
-        public string Token { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public int MemberID { get; set; }
+        public int ProductID { get; set; }
     }
 }

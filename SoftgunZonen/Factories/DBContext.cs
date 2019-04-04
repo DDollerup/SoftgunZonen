@@ -25,11 +25,13 @@ namespace SoftgunZonen.Factories
         private AutoFactory<Category> categoryFactory;
         private AutoFactory<Product> productFactory;
         private AutoFactory<Contact> contactFactory;
-        private AutoFactory<User> userFactory;
+        private UserFactory userFactory;
         private AutoFactory<Slider> sliderFactory;
         private MemberFactory memberFactory;
         private AutoFactory<Comment> commentFactory;
         private AutoFactory<MemberRole> memberRoleFactory;
+        private AutoFactory<ContactMessage> contactMessageFactory;
+        private AutoFactory<LikeRelation> likeRelationFactory;
 
         public AutoFactory<Page> PageFactory
         {
@@ -79,13 +81,13 @@ namespace SoftgunZonen.Factories
             }
         }
 
-        public AutoFactory<User> UserFactory
+        public UserFactory UserFactory
         {
             get
             {
                 if (userFactory == null)
                 {
-                    userFactory = new AutoFactory<User>();
+                    userFactory = new UserFactory();
                 }
                 return userFactory;
             }
@@ -136,6 +138,30 @@ namespace SoftgunZonen.Factories
                     memberRoleFactory = new AutoFactory<MemberRole>();
                 }
                 return memberRoleFactory;
+            }
+        }
+
+        public AutoFactory<ContactMessage> ContactMessageFactory
+        {
+            get
+            {
+                if (contactMessageFactory == null)
+                {
+                    contactMessageFactory = new AutoFactory<ContactMessage>();
+                }
+                return contactMessageFactory;
+            }
+        }
+
+        public AutoFactory<LikeRelation> LikeRelationFactory
+        {
+            get
+            {
+                if (likeRelationFactory == null)
+                {
+                    likeRelationFactory = new AutoFactory<LikeRelation>();
+                }
+                return likeRelationFactory;
             }
         }
     }

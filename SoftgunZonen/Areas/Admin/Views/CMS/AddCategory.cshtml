@@ -1,5 +1,6 @@
-﻿@{
-    ViewBag.Title = "Category";
+﻿
+@{
+    ViewBag.Title = "Add Category";
 }
 
 <h2>Add Category</h2>
@@ -8,19 +9,19 @@
     <div class="row">
         <div class="col-12">
             <p>
-                Here you can edit @ViewBag.Title.
+                Here you can @ViewBag.Title
             </p>
         </div>
         <div class="col-12">
             <div class="form-group">
                 <label for="Title">Title</label>
-                <input type="text" name="Title" />
+                <input type="text" name="Title" required />
             </div>
         </div>
         <div class="col-6">
             <div class="form-group">
-                <label for="currentImage">Existing Image</label>
-                <img />
+                <label for="currentImage">Current Image</label>
+                <img src="~/Content/Images/Categories/@(Model?.Image)" />
             </div>
         </div>
         <div class="col-6">

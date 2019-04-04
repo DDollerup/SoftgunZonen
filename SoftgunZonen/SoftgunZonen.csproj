@@ -207,13 +207,20 @@
     <Compile Include="Factories\AutoFactory.cs" />
     <Compile Include="Factories\DBContext.cs" />
     <Compile Include="Factories\MemberFactory.cs" />
+    <Compile Include="Factories\UserFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DecimalModelBinder.cs" />
+    <Compile Include="Helpers\Render.cs" />
+    <Compile Include="Helpers\Upload.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\CommentVM.cs" />
     <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\ContactMessage.cs" />
+    <Compile Include="Models\GetRect.cs" />
+    <Compile Include="Models\LikeRelation.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\MemberRole.cs" />
     <Compile Include="Models\MemberVM.cs" />
@@ -242,12 +249,15 @@
     <Content Include="Areas\Admin\Plugins\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Areas\Admin\Views\CMS\EditStore.cshtml" />
     <Content Include="Areas\Admin\Views\CMS\Categories.cshtml" />
-    <Content Include="Areas\Admin\Views\CMS\EditCategory.cshtml" />
     <Content Include="Areas\Admin\Views\CMS\AddCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\CMS\EditCategory.cshtml" />
     <Content Include="Areas\Admin\Views\CMS\Products.cshtml" />
     <Content Include="Areas\Admin\Views\CMS\AddProduct.cshtml" />
     <Content Include="Areas\Admin\Views\CMS\EditProduct.cshtml" />
-    <Content Include="Areas\Admin\Views\CMS\EditContact.cshtml" />
+    <Content Include="Areas\Admin\Views\CMS\Members.cshtml" />
+    <Content Include="Areas\Admin\Views\CMS\EditMember.cshtml" />
+    <Content Include="Areas\Admin\Views\CMS\ContactMessages.cshtml" />
+    <Content Include="Areas\Admin\Views\CMS\EditContactMessage.cshtml" />
     <Content Include="Areas\Admin\Views\CMS\Login.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -261,6 +271,7 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\CreateUser.cshtml" />
     <Content Include="Views\Home\UserProfile.cshtml" />
+    <Content Include="Views\Home\GetRandom.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

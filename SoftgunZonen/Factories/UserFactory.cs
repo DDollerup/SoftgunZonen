@@ -6,19 +6,19 @@ using System.Web;
 
 namespace SoftgunZonen.Factories
 {
-    public class MemberFactory : AutoFactory<Member>
+    public class UserFactory : AutoFactory<User>
     {
-        public Member Login(string email, string password)
+        public User Login(string email, string password)
         {
-            string SQL = $"SELECT * FROM Member WHERE Email='{email}'";
+            string SQL = $"SELECT * FROM [User] WHERE Email='{email}'";
 
-            Member member = SqlQuery(SQL);
+            User member = SqlQuery(SQL);
 
             if (member?.Password == AutoFactory.GenerateSaltedPassword(member.Token, password))
             {
                 return member;
             }
-            return new Member();
+            return new User();
         }
     }
 }

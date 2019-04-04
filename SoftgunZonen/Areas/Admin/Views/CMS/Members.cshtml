@@ -1,0 +1,49 @@
+﻿@model List<Member>
+@{
+    ViewBag.Title = "Members";
+}
+
+<div class="row">
+    <div class="col-12">
+        <p>
+            Here you can create, edit and delete @ViewBag.Title.
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <input type="text" id="dataInput" placeholder="Search for @ViewBag.Title by name" onkeyup="simpleSearch('#dataInput','[data-searchFilter]','#clearBtn')" /><button id="clearBtn">Clear</button>
+        <a href="/Admin/CMS/AddMember" class="btn pull-right">Add Member</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <table class="cmsTable">
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Actions</th>
+            </tr>
+            @if (Model.Count < 1)
+            {
+                <tr>
+                    <td colspan="3">Der var ingen resultater tilgængelig.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (Member item in Model)
+                {
+                    <tr data-searchFilter="@(item.Firstname)">
+                        <td>@item.ID</td>
+                        <td>@item.Firstname @item.Lastname</td>
+                        <td>
+                            <a href="/Admin/CMS/EditMember/@item.ID"><i class="material-icons">edit</i></a>
+                            <a href="/Admin/CMS/DeleteMember/@item.ID" onclick="return confirm('Are you sure?')"><i class="material-icons">delete_forever</i></a>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>

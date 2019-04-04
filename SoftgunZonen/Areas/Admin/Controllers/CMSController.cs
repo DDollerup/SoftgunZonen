@@ -1,11 +1,10 @@
-﻿using System;
+﻿using SoftgunZonen.Factories;
+using SoftgunZonen.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SoftgunZonen.Factories;
-using SoftgunZonen.Models;
-using System.IO;
 using System.Web.Security;
 
 namespace SoftgunZonen.Areas.Admin.Controllers
@@ -14,77 +13,52 @@ namespace SoftgunZonen.Areas.Admin.Controllers
     public class CMSController : Controller
     {
         DBContext context = DBContext.Instance;
-        // GET: Admin/CMS
         public ActionResult Index()
         {
-            return View();
+            return View(context.ContactMessageFactory.GetAll().Where(x => x.Read == false).ToList());
         }
 
-        #region Index
+        #region Pages
         public ActionResult EditIndex()
         {
-            Page index = context.PageFactory.Get(1);
-            return View(index);
+            return View(context.PageFactory.Get(1));
         }
 
         [HttpPost]
         public ActionResult EditIndex(Page page)
         {
             context.PageFactory.Update(page);
-            return RedirectToAction("EditIndex");
+            TempData["SYS_MSG"] = "Index has been updated.";
+            return View(page);
         }
-        #endregion
 
-        #region Store
         public ActionResult EditStore()
         {
-            Page store = context.PageFactory.Get(2);
-            return View(store);
+            return View(context.PageFactory.Get(2));
         }
 
         [HttpPost]
         public ActionResult EditStore(Page page, HttpPostedFileBase imageFile)
         {
+            // contentlength = filens størrelse i bytes
             if (imageFile?.ContentLength > 0)
             {
                 page.Image = imageFile.FileName;
-                string rootPath = Request.PhysicalApplicationPath;
-                string savePath = @"/Content/Images/Pages/" + imageFile.FileName;
-                imageFile.SaveAs(rootPath + savePath);
+                string appPath = Request.PhysicalApplicationPath;
+                string savePath = @"/Content/Images/Pages/";
+                imageFile.SaveAs(appPath + savePath + imageFile.FileName);
             }
 
             context.PageFactory.Update(page);
-
-            return RedirectToAction("EditStore");
-        }
+            TempData["SYS_MSG"] = "Store has been updated";
+            return View(page);
+        } 
         #endregion
 
-        #region Category
+        #region Categories
         public ActionResult Categories()
         {
-            List<Category> categories = context.CategoryFactory.GetAll();
-            return View(categories);
-        }
-
-        public ActionResult EditCategory(int id = 0)
-        {
-            Category category = context.CategoryFactory.Get(id);
-            return View(category);
-        }
-
-        [HttpPost]
-        public ActionResult EditCategory(Category category, HttpPostedFileBase imageFile)
-        {
-            if (imageFile?.ContentLength > 0)
-            {
-                category.Image = imageFile.FileName;
-                string rootPath = Request.PhysicalApplicationPath;
-                string savePath = @"/Content/Images/Categories/" + imageFile.FileName;
-                imageFile.SaveAs(rootPath + savePath);
-            }
-
-            context.CategoryFactory.Update(category);
-            return RedirectToAction("Categories");
+            return View(context.CategoryFactory.GetAll());
         }
 
         public ActionResult AddCategory()
@@ -98,9 +72,9 @@ namespace SoftgunZonen.Areas.Admin.Controllers
             if (imageFile?.ContentLength > 0)
             {
                 category.Image = imageFile.FileName;
-                string rootPath = Request.PhysicalApplicationPath;
-                string savePath = @"/Content/Images/Categories/" + imageFile.FileName;
-                imageFile.SaveAs(rootPath + savePath);
+                string appPath = Request.PhysicalApplicationPath;
+                string savePath = @"/Content/Images/Categories/";
+                imageFile.SaveAs(appPath + savePath + imageFile.FileName);
             }
             else
             {
@@ -108,31 +82,44 @@ namespace SoftgunZonen.Areas.Admin.Controllers
             }
 
             context.CategoryFactory.Insert(category);
+            TempData["SYS_MSG"] = "Category has been added";
+            return RedirectToAction("Categories");
+        }
+
+        // id er Category.ID
+        public ActionResult EditCategory(int id = 0)
+        {
+            return View(context.CategoryFactory.Get(id));
+        }
+
+        [HttpPost]
+        public ActionResult EditCategory(Category category, HttpPostedFileBase imageFile)
+        {
+            if (imageFile?.ContentLength > 0)
+            {
+                category.Image = imageFile.FileName;
+                string appPath = Request.PhysicalApplicationPath;
+                string savePath = @"/Content/Images/Categories/";
+                imageFile.SaveAs(appPath + savePath + imageFile.FileName);
+            }
+
+            context.CategoryFactory.Update(category);
+            TempData["SYS_MSG"] = "Category has been updated";
             return RedirectToAction("Categories");
         }
 
         public ActionResult DeleteCategory(int id = 0)
         {
-            Category category = context.CategoryFactory.Get(id);
-
-            if (category.Image != "no-img.png")
-            {
-                string rootPath = Request.PhysicalApplicationPath;
-                string savePath = @"/Content/Images/Categories/" + category.Image;
-                System.IO.File.SetAttributes(rootPath + savePath, FileAttributes.Normal);
-                System.IO.File.Delete(rootPath + savePath);
-            }
-
             context.CategoryFactory.Delete(id);
+            TempData["SYS_MSG"] = "Category has been deleted";
             return RedirectToAction("Categories");
-        }
+        } 
         #endregion
 
         #region Products
         public ActionResult Products()
         {
-            List<Product> products = context.ProductFactory.GetAll();
-            return View(products);
+            return View(context.ProductFactory.GetAll());
         }
 
         public ActionResult AddProduct()
@@ -142,126 +129,135 @@ namespace SoftgunZonen.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddProduct(Product product, string price, HttpPostedFileBase imageFile)
+        public ActionResult AddProduct(Product product, HttpPostedFileBase imageFile)
         {
-            if (imageFile?.ContentLength > 0)
+            if (Upload.Image(imageFile, Request.PhysicalApplicationPath + @"/Content/Images/Products/", out string fileName, 530))
             {
-                product.Image = imageFile.FileName;
-                string rootPath = Request.PhysicalApplicationPath;
-                string savePath = @"/Content/Images/Products/" + imageFile.FileName;
-                imageFile.SaveAs(rootPath + savePath);
+                product.Image = fileName;
             }
             else
             {
                 product.Image = "no-img.png";
             }
 
-            if (price != null)
-            {
-                product.Price = decimal.Parse(price.Replace(".", ","));
-            }
-
             context.ProductFactory.Insert(product);
-
+            TempData["SYS_MSG"] = "Product has been added";
             return RedirectToAction("Products");
         }
 
+        // id er Product.ID
         public ActionResult EditProduct(int id = 0)
         {
             ViewBag.Categories = context.CategoryFactory.GetAll();
-            Product product = context.ProductFactory.Get(id);
-            return View(product);
+            return View(context.ProductFactory.Get(id));
         }
 
         [HttpPost]
-        public ActionResult EditProduct(Product product, string price, HttpPostedFileBase imageFile)
+        public ActionResult EditProduct(Product product, HttpPostedFileBase imageFile)
         {
-            if (imageFile?.ContentLength > 0)
+            if (Upload.Image(imageFile, Request.PhysicalApplicationPath + @"/Content/Images/Products/", out string fileName, 530))
             {
-                product.Image = imageFile.FileName;
-                string rootPath = Request.PhysicalApplicationPath;
-                string savePath = @"/Content/Images/Products/" + imageFile.FileName;
-                imageFile.SaveAs(rootPath + savePath);
-            }
-
-            if (price != null)
-            {
-                product.Price = decimal.Parse(price.Replace(".", ","));
+                product.Image = fileName;
             }
 
             context.ProductFactory.Update(product);
-
-            return RedirectToAction("Products");
+            TempData["SYS_MSG"] = "Product has been updated";
+            return RedirectPermanent("Products");
         }
 
+        //id = Product.ID
         public ActionResult DeleteProduct(int id = 0)
         {
             Product product = context.ProductFactory.Get(id);
-
-            if (product.Image != "no-img.png")
+            string filePath = Request.PhysicalApplicationPath + @"/Content/Images/Products/" + product.Image;
+            if (System.IO.File.Exists(filePath))
             {
-                string rootPath = Request.PhysicalApplicationPath;
-                string savePath = @"/Content/Images/Products/" + product.Image;
-                System.IO.File.SetAttributes(rootPath + savePath, FileAttributes.Normal);
-                System.IO.File.Delete(rootPath + savePath);
+                System.IO.File.Delete(filePath);
             }
 
             context.ProductFactory.Delete(id);
 
+            TempData["SYS_MSG"] = "Product has been deleted";
             return RedirectToAction("Products");
         }
         #endregion
 
-        #region Contact
-        public ActionResult EditContact()
+        #region Members
+        public ActionResult Members()
         {
-            Contact contact = context.ContactFactory.Get(1);
-            return View(contact);
+            return View(context.MemberFactory.GetAll());
+        }
+
+        // id = Member.ID
+        public ActionResult EditMember(int id = 0)
+        {
+            ViewBag.MemberRoles = context.MemberRoleFactory.GetAll();
+            return View(context.MemberFactory.Get(id));
         }
 
         [HttpPost]
-        public ActionResult EditContact(Contact contact, HttpPostedFileBase imageFile)
+        public ActionResult EditMember(Member member)
         {
-            if (imageFile?.ContentLength > 0)
-            {
-                contact.Image = imageFile.FileName;
-                string rootPath = Request.PhysicalApplicationPath;
-                string savePath = @"/Content/Images/Contact/" + imageFile.FileName;
-                imageFile.SaveAs(rootPath + savePath);
-            }
+            context.MemberFactory.Update(member);
+            TempData["SYS_MSG"] = "Member has been updated";
+            return RedirectToAction("Members");
+        }
 
-            context.ContactFactory.Update(contact);
-            return RedirectToAction("EditContact");
+        public ActionResult DeleteMember(int id = 0)
+        {
+            context.MemberFactory.Delete(id);
+            TempData["SYS_MSG"] = "Member has been deleted";
+            return RedirectToAction("Members");
+        }
+        #endregion
+
+        #region ContactMessages
+        
+        public ActionResult ContactMessages()
+        {
+            return View(context.ContactMessageFactory.GetAll());
+        }
+
+        public ActionResult EditContactMessage(int id = 0)
+        {
+            return View(context.ContactMessageFactory.Get(id));
+        }
+
+        [HttpPost]
+        public ActionResult EditContactMessage(ContactMessage contactMessage)
+        {
+            contactMessage.Read = true;
+            context.ContactMessageFactory.Update(contactMessage);
+
+            TempData["SYS_MSG"] = "Contact Message has been read";
+            return RedirectToAction("ContactMessages");
         }
         #endregion
 
         #region Login Logout
+
         [AllowAnonymous]
         public ActionResult Login(string returnurl)
         {
-            TempData["ReturnUrl"] = returnurl;
+            TempData["ReturnURL"] = returnurl;
             return View();
         }
 
-        [HttpPost, ValidateAntiForgeryToken, AllowAnonymous]
+        [AllowAnonymous, HttpPost, ValidateAntiForgeryToken]
         public ActionResult Login(string email, string password)
         {
-            User user = context.UserFactory.SqlQuery($"SELECT * FROM [User] WHERE Email='{email}' AND Password='{AutoFactory<User>.GenerateSHA512Hash(password)}'");
+            User user = context.UserFactory.Login(email, password);
 
             if (user?.ID > 0)
             {
                 FormsAuthentication.SetAuthCookie(email, false);
-                string returnUrl = TempData["ReturnUrl"]?.ToString() ?? "Index";
+                string returnUrl = TempData["ReturnURL"]?.ToString() ?? "Index";
                 return Redirect(returnUrl);
             }
 
-            return View();
-        }
+            TempData["SYS_MSG"] = "Wrong username or password";
 
-        public ActionResult Logout()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Login");
+            return View();
         }
         #endregion
     }

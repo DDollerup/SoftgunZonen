@@ -1,6 +1,6 @@
 ﻿@model Product
 @{
-    ViewBag.Title = "Product";
+    ViewBag.Title = "Edit Product";
 }
 
 <h2>Edit Product</h2>
@@ -11,42 +11,42 @@
     <div class="row">
         <div class="col-12">
             <p>
-                Here you can edit @ViewBag.Title.
+                Here you can @ViewBag.Title
             </p>
         </div>
         <div class="col-12">
             <div class="form-group">
                 <label for="Title">Title</label>
-                <input type="text" name="Title" value="@(Model?.Title)" />
+                <input type="text" name="Title" value="@(Model?.Title)" required />
             </div>
         </div>
-        <div class="col-12">
-            <div class="form-group">
-                <label for="Content">Content</label>
-                <textarea name="Content" class="basic">@(Model?.Content)</textarea>
-            </div>
-        </div>
-        <div class="col-12">
+        <div class="col-3">
             <div class="form-group">
                 <label for="Price">Price</label>
-                <input type="number" step="0.01" name="Price" value="@(Model?.Price.ToString().Replace(",","."))"/>
+                <input type="number" step="0.01" name="Price" value="@(Model?.Price.ToString().Replace(",","."))" required />
             </div>
         </div>
-        <div class="col-12">
+        <div class="col-3">
+            <div class="form-group">
+                <label for="SalePrice">Sale Price</label>
+                <input type="number" step="0.01" name="SalePrice" value="@(Model?.SalePrice.ToString().Replace(",","."))" required />
+            </div>
+        </div>
+        <div class="col-3">
             <div class="form-group">
                 <label for="Avaliable">Avaliable</label>
-                <input type="checkbox" name="Avaliable" value="true" @(Model.Avaliable ? "checked" : "") />
+                <input type="checkbox" name="Avaliable" @(Model.Avaliable ? "checked" : "") value="true" />
                 <input type="hidden" name="Avaliable" value="false" />
             </div>
         </div>
-        <div class="col-12">
+        <div class="col-3">
             <div class="form-group">
                 <label for="CategoryID">Category</label>
-                <select name="CategoryID">
-                    <option value="" selected>Pick Category</option>
+                <select name="CategoryID" required>
+                    <option value="">Pick Category</option>
                     @foreach (Category item in ViewBag.Categories)
                     {
-                        if (Model?.CategoryID == item.ID)
+                        if (item.ID == Model.CategoryID)
                         {
                             <option value="@item.ID" selected>@item.Title</option>
                         }
@@ -58,9 +58,15 @@
                 </select>
             </div>
         </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Content">Content</label>
+                <textarea name="Content" required>@(Model?.Content)</textarea>
+            </div>
+        </div>
         <div class="col-6">
             <div class="form-group">
-                <label for="currentImage">Existing Image</label>
+                <label for="currentImage">Current Image</label>
                 <img src="~/Content/Images/Products/@(Model?.Image)" />
             </div>
         </div>
@@ -76,13 +82,16 @@
     </div>
 </form>
 
-@section JS{
+@section JS
+{
     <script src="~/Areas/Admin/Plugins/ckeditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replaceAll(function (textarea, config) {
-            if (textarea.className == "basic") {
-                config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript,TextColor,BGColor,Format,HorizontalRule,Outdent,Indent,BulletedList,NumberedList';
+            if (textarea.className == "advanced") {
                 return true;
+            }
+            else if (textarea.className == "basic") {
+                config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript,TextColor,BGColor,Format,HorizontalRule,Outdent,Indent,BulletedList,NumberedList';
             }
         });
     </script>

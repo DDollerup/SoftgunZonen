@@ -1,7 +1,4 @@
-﻿<!--  -->
-@*  *@
-
-@model SoftgunZonen.Models.Page
+﻿@model SoftgunZonen.Models.Page
 @{
     ViewBag.Title = "Index";
 }
@@ -12,4 +9,22 @@
     @Html.Raw(Model.Content)
 </p>
 
+<a href="#" class="btn" id="getRandom">Get Random Stuff RECT!</a>
+<div id="target">
+
+</div>
+
 @Html.Action("Slider", "Home")
+
+@section JS
+{
+    <script>
+        $("#getRandom").click(function () {
+            var htmlTarget = $("#target");
+
+            $.getJSON("/Home/GetRandom", function (data) {
+                htmlTarget.html(data.html);
+            });
+        });
+    </script>
+}

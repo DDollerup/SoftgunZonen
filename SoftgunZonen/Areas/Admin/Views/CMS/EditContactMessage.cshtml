@@ -1,0 +1,51 @@
+﻿@model ContactMessage
+@{
+    ViewBag.Title = "Edit Contact Message";
+}
+
+<h2>Edit Contact Message</h2>
+
+<form action="/Admin/CMS/EditContactMessage" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ID" value="@(Model?.ID)" />
+    <input type="hidden" name="Read" value="@(Model?.Read)" />
+    <div class="row">
+        <div class="col-12">
+            <p>
+                Here you can @ViewBag.Title
+            </p>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Date">Date</label>
+                <input type="text" name="Date" required readonly value="@(Model?.Date.ToShortDateString())" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input type="text" name="Name" required readonly value="@(Model?.Name)" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input type="text" name="Email" required readonly value="@(Model?.Email)" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label for="Subject">Subject</label>
+                <input type="text" name="Subject" required readonly value="@(Model?.Subject)" />
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-group">
+                <label for="Subject">Subject</label>
+                <textarea name="Content" required readonly>@(Model?.Content)</textarea>
+            </div>
+        </div>
+        <div class="col-12">
+            <input type="submit" value="Save" class="pull-left" />
+        </div>
+    </div>
+</form>

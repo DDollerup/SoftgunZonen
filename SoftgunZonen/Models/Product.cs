@@ -17,6 +17,7 @@ namespace SoftgunZonen.Models
         public string Image { get; set; }
         public int CategoryID { get; set; }
         public decimal SalePrice { get; set; }
+        public int Views { get; set; }
 
         public string GetAvaliable()
         {
