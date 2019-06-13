@@ -19,11 +19,22 @@ namespace SoftgunZonen.Controllers
             if (Session[activeUserKey] == null)
             {
                 Session[activeUserKey] = new { SessionID = Guid.NewGuid(), ProductsViewed = new List<int>() };
+                // Update Visitor Count i databasen dato
             }
             else
             {
                 activeUser = Session[activeUserKey];
             }
+
+            Member member = Session["Member"] as Member;
+            if (member != null)
+            {
+                if (context.MemberFactory.Get(member.ID).Changed == true)
+                {
+                    Session["Member"] = null;
+                }
+            }
+
             base.OnActionExecuting(filterContext);
         }
 
@@ -55,7 +66,7 @@ namespace SoftgunZonen.Controllers
             return View(productsByCategoryID);
         }
 
-        public ActionResult ShowProduct(int id = 0)
+        public ActionResult ShowProduct(int id)
         {
             Product product = context.ProductFactory.Get(id);
 
@@ -114,6 +125,11 @@ namespace SoftgunZonen.Controllers
             Member member = context.MemberFactory.Login(email, password);
             if (member.ID > 0)
             {
+                if (member.Changed == true)
+                {
+                    member.Changed = false;
+                    context.MemberFactory.Update(member);
+                }
                 Session["Member"] = member;
             }
             return RedirectToAction("UserProfile");
@@ -149,22 +165,10 @@ namespace SoftgunZonen.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult CreateUser(Member member)
-        //{
-        //    if (context.MemberFactory.ExistsBy("Email", member.Email) == false)
-        //    {
-        //        member.Password = AutoFactory<Member>.GenerateSHA512Hash(member.Password);
-        //        context.MemberFactory.Insert(member);
-        //        return RedirectToAction("Login");
-        //    }
-        //    ViewBag.CreateMemberError = true;
-        //    return View(member);
-        //}
-
         [HttpPost]
         public ActionResult CreateUser(Member member)
         {
+
             if (!context.MemberFactory.ExistsBy("Email", member.Email))
             {
                 member.MemberRoleID = 1;
@@ -231,6 +235,21 @@ namespace SoftgunZonen.Controllers
             return Json(new { result = productLiked, newLikeCount = context.LikeRelationFactory.CountBy("ProductID", productID) });
         }
 
+        public ActionResult FilterProducts()
+        {
+            return View(context.ProductFactory.GetAll().Where(x => x.Price > 100).OrderByDescending(x => x.Price).ToList());
+        }
+
+        public ActionResult NotFound()
+        {
+            return View();
+        }
+
+        public ActionResult ServerError()
+        {
+            return View();
+        }
+
         public ActionResult GetRandom()
         {
             //List<Product> mostViewed = context.ProductFactory.GetAll().OrderBy(x => x.Views).Take(3).ToList();
@@ -241,6 +260,11 @@ namespace SoftgunZonen.Controllers
                 Comment = context.CommentFactory.TakeRandom(1).FirstOrDefault()
             };
             return Json(new { html = Render.RenderPartialToString(this, "GetRandom", getRect) }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Poll()
+        {
+            return View();
         }
     }
 }

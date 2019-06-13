@@ -196,7 +196,7 @@ namespace SoftgunZonen.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditMember(Member member)
+        public ActionResult EditMember(Member member, string newPassword)
         {
             context.MemberFactory.Update(member);
             TempData["SYS_MSG"] = "Member has been updated";
@@ -212,7 +212,6 @@ namespace SoftgunZonen.Areas.Admin.Controllers
         #endregion
 
         #region ContactMessages
-        
         public ActionResult ContactMessages()
         {
             return View(context.ContactMessageFactory.GetAll());

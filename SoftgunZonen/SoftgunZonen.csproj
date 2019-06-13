@@ -212,6 +212,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DecimalModelBinder.cs" />
+    <Compile Include="Helpers\ListExtensions.cs" />
     <Compile Include="Helpers\Render.cs" />
     <Compile Include="Helpers\Upload.cs" />
     <Compile Include="Models\Category.cs" />
@@ -272,6 +273,11 @@
     <Content Include="Views\Home\CreateUser.cshtml" />
     <Content Include="Views\Home\UserProfile.cshtml" />
     <Content Include="Views\Home\GetRandom.cshtml" />
+    <Content Include="Views\Home\FilterProducts.cshtml" />
+    <Content Include="Views\Home\NotFound.cshtml" />
+    <Content Include="Views\Home\ServerError.cshtml" />
+    <Content Include="Views\Home\Poll.cshtml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

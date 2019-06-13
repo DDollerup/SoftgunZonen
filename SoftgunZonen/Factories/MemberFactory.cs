@@ -8,6 +8,7 @@ namespace SoftgunZonen.Factories
 {
     public class MemberFactory : AutoFactory<Member>
     {
+
         public Member Login(string email, string password)
         {
             string SQL = $"SELECT * FROM Member WHERE Email='{email}'";
